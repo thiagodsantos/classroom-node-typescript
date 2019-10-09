@@ -2,20 +2,24 @@ import { VendedoresModel } from '../model/VendedoresModel';
 import { DocumentQuery } from 'mongoose';
 
 class VendedoresRepository {
-    public getAll(): DocumentQuery<VendedoresModel[], VendedoresModel, {}> {
-        return VendedoresModel.find();
+    public find(
+        params: object,
+        offset: number = 0,
+        limit: number = 10
+    ): DocumentQuery<VendedoresModel[], VendedoresModel, {}> {
+        return VendedoresModel.find(params).skip(offset).limit(limit);
     }
 
-    public findByNome(nome: String): DocumentQuery<VendedoresModel[], VendedoresModel, {}> {
-        return VendedoresModel.find({ nome });
+    public store(vendedor: object): Promise<VendedoresModel> {
+        return VendedoresModel.create(vendedor);
     }
 
-    public findByCpf(cpf: String): DocumentQuery<VendedoresModel | null, VendedoresModel, {}> {
-        return VendedoresModel.findOne({ cpf });
+    public update(id: string, vendedor: object): DocumentQuery<VendedoresModel | null, VendedoresModel, {}> {
+        return VendedoresModel.findByIdAndUpdate(id, vendedor);
     }
 
-    public findByRg(rg: String): DocumentQuery<VendedoresModel | null, VendedoresModel, {}> {
-        return VendedoresModel.findOne({ rg });
+    public delete(id: string): DocumentQuery<VendedoresModel | null, VendedoresModel, {}> {
+        return VendedoresModel.findByIdAndDelete(id);
     }
 }
 

@@ -10,7 +10,7 @@ class App {
     public express: express.Application;
 
     public constructor () {
-        this.express = express();
+        this.express  = express();
 
         this.middleware();
         this.database();
@@ -23,7 +23,14 @@ class App {
     }
 
     private database (): void {
-        mongoose.connect(<string>process.env.MONGO_URI, {useNewUrlParser: true});
+        mongoose.connect(<string>process.env.MONGO_URI,
+            {
+                useNewUrlParser: true,
+                useUnifiedTopology: true
+            }
+        )
+        .then(success => console.log('MongoDB iniciado'))
+        .catch(error => console.error(error));
     }
 
     private routes (): void {

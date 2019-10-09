@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start-dev": "tsc && node dist/src/server/server.ts",
+    "start-dev": "tsc && node dist/server/server.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
